@@ -13,15 +13,17 @@ h1 {
 }
 
 p {
+  color: white;
+  text-align: center;
   font-family: verdana;
-  font-size: 100px;
+  font-size: 48px;
 }
 </style>
 </head>
 <body>
 
-<h1>My First CSS Example</h1>
-<p>This is master .. </p>
+<h1>Master Server</h1>
+<p>This is master server </p>
 
 </body>
 </html>
