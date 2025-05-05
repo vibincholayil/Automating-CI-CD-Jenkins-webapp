@@ -14,14 +14,14 @@ h1 {
 
 p {
   font-family: verdana;
-  font-size: 20px;
+  font-size: 100px;
 }
 </style>
 </head>
 <body>
 
 <h1>My First CSS Example</h1>
-<p>This is a paragraph.</p>
+<p>This is master .. </p>
 
 </body>
 </html>
