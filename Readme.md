@@ -152,24 +152,25 @@ sudo systemctl status tomcat
 ```
 
 ###  Configure Jenkins VM  
-- Installed Jenkins
-- Set up Java, Git, and required dependencies
-- Installed necessary Jenkins plugins (e.g., Git, Deploy to Container, etc.)
+I have install jenkins plugin:
+- dashboard view
+- Build Pipeline
+- Deploy to container
+- maven integration
+- Email Extension Template
+
+
 
 #  Configure Tomcat VMs  
-- Installed and configured Apache Tomcat
-- Enabled `manager-script` role for remote deployments
-- Verified accessibility of `/manager/text` endpoint
+Connected Jenkins with Tomcat and with .war file the webserver is deploy automaticaly when the updation happen from github
+![image](https://github.com/user-attachments/assets/a339ab1e-b7ae-4487-9551-48c63468f8b5)
 
 ---
 
-##  What I Learned
-
+##  What I Learned  
 - **Jenkins Setup on GCP**: Learned how to install and configure Jenkins in a VM environment with necessary tools and variables.
 - **CI/CD Pipeline Creation**: Built pipelines to automate deployment from Jenkins to Tomcat.
 - **Git Mastery**: Practiced advanced Git commands for branching, merging, and managing development workflows.
 - **Understanding SDLC**: Gained insights into managing and automating the software development lifecycle, from code push to production deployment.
 
----
-
-"Readme.md" [readonly] 59L, 2485B                                                                                                                                           1,1           Top
+---                                                                                                                                      1,1           Top
