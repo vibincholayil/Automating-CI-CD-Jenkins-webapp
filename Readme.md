@@ -81,6 +81,7 @@ mvn -version
 java --version
 ```
 
+<img width="699" alt="Screenshot 2025-05-06 at 13 01 52" src="https://github.com/user-attachments/assets/399282e1-d20d-4460-8201-82c4a938a555" />
 
 
 
