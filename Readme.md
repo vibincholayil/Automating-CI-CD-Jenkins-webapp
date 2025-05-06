@@ -158,6 +158,7 @@ I have install jenkins plugin:
 - Deploy to container
 - maven integration
 - Email Extension Template
+![image](https://github.com/user-attachments/assets/7c171dee-5e37-48c3-8eb0-c068e3bf3984)
 
 
 
