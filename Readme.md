@@ -83,16 +83,75 @@ java --version
 
 <img width="699" alt="Screenshot 2025-05-06 at 13 01 52" src="https://github.com/user-attachments/assets/399282e1-d20d-4460-8201-82c4a938a555" />
 
+###   Step 3: Configure Tomcat VM  
 
+For creating all step above for install mvn and java. then followed below steps/
 
+```
+# mkdir /usr/local/tomcat 
+sudo wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.90/bin/apache-tomcat-9.0.90.tar.gz 
+sudo tar xvf apache-tomcat-9.0.90.tar.gz --strip-components=1 -C /usr/local/tomcat 
+sudo ln -s /usr/local/tomcat/apache-tomcat-9.0.90 /usr/local/tomcat/tomcat 
+sudo useradd -r tomcat 
+sudo chown -R tomcat:tomcat /usr/local/tomcat 
+```
 
+```
+# vim /etc/systemd/system/tomcat.service  
 
-# Download and install Apache Maven 
-wget https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.tar.gz
-tar xvf apache-maven-3.9.8-bin.tar.gz
-sudo mv apache-maven-3.9.8 /usr/local/apache-maven
+[Unit]  
+Description=Apache Tomcat Web Application Container  
+After=network.target
 
-#  Configure Jenkins VM  
+[Service]
+Type=forking
+User=tomcat
+Group=tomcat
+Environment="JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64"
+Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom -Djava.awt.headless=true"
+Environment="CATALINA_BASE=/usr/local/tomcat"
+Environment="CATALINA_HOME=/usr/local/tomcat"
+Environment="CATALINA_PID=/usr/local/tomcat/temp/tomcat.pid"
+Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+ExecStart=/usr/local/tomcat/bin/startup.sh
+ExecStop=/usr/local/tomcat/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```
+sudo systemctl daemon-reload
+sudo systemctl enable tomcat
+sudo systemctl start tomcat
+sudo systemctl status tomcat
+```
+
+```
+# sudo tee /usr/local/tomcat/conf/tomcat-users.xml > /dev/null 
+
+<tomcat-users>
+    <role rolename="tomcat"/>
+    <role rolename="manager-gui"/>
+    <user username="tomcat" password="s3cret" roles="tomcat,manager-gui,manager-script"/>
+</tomcat-users>
+```
+
+```
+sudo sed -i 's/<Valve className="org.apache.catalina.valves.RemoteAddrValve"/  
+
+<!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve"/' /usr/local/tomcat/webapps/manager/META-INF/context.xml
+sudo sed -i 's/\/> -->/\/> -->/' /usr/local/tomcat/webapps/manager/META-INF/context.xml
+```
+
+```
+sudo systemctl daemon-reload
+sudo systemctl stop tomcat
+sudo systemctl start tomcat
+sudo systemctl status tomcat
+```
+
+###  Configure Jenkins VM  
 - Installed Jenkins
 - Set up Java, Git, and required dependencies
 - Installed necessary Jenkins plugins (e.g., Git, Deploy to Container, etc.)
@@ -104,7 +163,7 @@ sudo mv apache-maven-3.9.8 /usr/local/apache-maven
 
 ---
 
-## 📚  What I Learned
+##  What I Learned
 
 - **Jenkins Setup on GCP**: Learned how to install and configure Jenkins in a VM environment with necessary tools and variables.
 - **CI/CD Pipeline Creation**: Built pipelines to automate deployment from Jenkins to Tomcat.
